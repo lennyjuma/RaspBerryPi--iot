@@ -1,2 +1,3 @@
 # RaspBerryPi--iot
-inter of thgings implementation using raspberry pi, more to come soon
+internet of things implementation using raspberry pi, more to come soon
+using raspberry pi model 2 B
