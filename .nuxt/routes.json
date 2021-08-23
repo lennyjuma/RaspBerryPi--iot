@@ -1,0 +1,16 @@
+[
+  {
+    "name": "test",
+    "path": "/test",
+    "component": "/home/kagz/Desktop/iot/ras/pages/test.vue",
+    "chunkName": "pages/test",
+    "_name": "_3627bb43"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/home/kagz/Desktop/iot/ras/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_b0b52f1e"
+  }
+]
