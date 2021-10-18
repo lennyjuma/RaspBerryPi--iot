@@ -1,6 +1,6 @@
 {
   "name": "js",
-  "type": "module",  
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,9 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "lowdb": "^2.1.0",
-    "mqtt": "^4.2.8"
+    "mqtt": "^4.2.8",
+    "socket.io": "^4.3.1"
   }
 }

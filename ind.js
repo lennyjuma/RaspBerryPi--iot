@@ -1,9 +1,16 @@
 
 'use strict'
+import http from 'http';
+import { Server } from 'socket.io';
 import path from 'path';
+import cors from  'cors';
 import  express  from 'express';
 //const express = require('express');
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
+
+app.use(cors())
 
 // test
 app.get('/', function (req, res) {
@@ -83,5 +90,10 @@ app.get('/mqtt',(req,res) => {
   res.send(data)
 });
 
+io.on('connection', (socket) => {
+    // eslint-disable-next-line no-console
+    console.log('a user connected, server received connecting-event',socket);
+});
 
-app.listen(3000, () => console.log('App listening on port ', 3000));
+
+server.listen(3200, () => console.log('Server listening on port ', 3200));
