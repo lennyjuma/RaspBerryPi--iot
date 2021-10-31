@@ -6,13 +6,13 @@ import random
 
 from paho.mqtt import client as mqtt_client
 
-broker = 'broker.emqx.io'
+broker = '172.16.33.43'
 port = 1883
 topic = "python/mqtt"
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
-# username = 'emqx'
-# password = 'public'
+username = 'emqx'
+password = 'public'
  
 #GPIO Mode (BOARD / BCM)
 GPIO.setmode(GPIO.BOARD)
@@ -31,15 +31,15 @@ GPIO.setup(GPIO_ECHO, GPIO.IN)
 # Usually, we will create an MQTT client at the same time and this client will connect to broker.emqx.io 
 
 def connect_mqtt():
-    def on_connect(client, userdata, flags, rc):
-        if rc == 0:
-            print("Connected to MQTT Broker!")
-        else:
-            print("Failed to connect, return code %d\n", rc)
+#    def on_connect(client, userdata, flags, rc):
+   #     if rc == 0:
+    #        print("Connected to MQTT Broker!")
+     #   else:
+      #      print("Failed to connect, return code %d\n", rc)
     # Set Connecting Client ID
     client = mqtt_client.Client(client_id)
     client.username_pw_set(username, password)
-    client.on_connect = on_connect
+ #   client.on_connect = on_connect
     client.connect(broker, port)
     return client
 
@@ -90,11 +90,13 @@ def distance(client):
 if __name__ == '__main__':
     try:
         while True:
-	    client = connect_mqtt()
-	    client.loop_start()
+            client = connect_mqtt()
+            client.loop_start()
+#            client.publish("testTopic/distance", dist)
             dist = distance(client)
+            client.publish("testTopic/distance", dist)
             print ("Measured Distance = %.1f cm" % dist)
-            time.sleep(1)                  
+            time.sleep(5)                  
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
         print("Measurement stopped by User")
