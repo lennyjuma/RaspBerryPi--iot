@@ -60,8 +60,8 @@ await db.write()
 
 
 import  mqtt from 'mqtt'
-//var mqtt = require('mqtt')
-var client  = mqtt.connect('mqtt://localhost:1883')
+//let mqtt = require('mqtt')
+let client  = mqtt.connect('mqtt://172.16.33.43:1883')
 
 client.on('connect', function () {
   client.subscribe('testTopic', function (err) {
@@ -79,11 +79,11 @@ client.on('message', function (topic, message) {
   // message is Buffer
   msg.push(message.toString())
   console.log(message.toString())
-  client.end()
-})
+  // client.end()
 
-console.log('mqttmsg',mqttmsg)
+})
 msg.push(mqttmsg)
+console.log('mqttmsg',mqttmsg)
 
 app.get('/mqtt',(req,res) => {
   let data = db.data.msg
