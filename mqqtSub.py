@@ -1,18 +1,21 @@
 # python3.6
 
 import random
-
+import RPi.GPIO as gpio
+import time
 from paho.mqtt import client as mqtt_client
+gpio.setmode(gpio.BOARD)
+GPIO_LED = 12
+gpio.setup(GPIO_LED, gpio.OUT)
 
 
-broker = '172.16.33.43'
+broker = '172.16.32.81'
 port = 1883
-topic = "device/motionSensor"
+topic = "device/activate"
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 100)}'
 username = 'emqx'
 password = 'public'
-
 
 
 def connect_mqtt() -> mqtt_client:
@@ -29,10 +32,16 @@ def connect_mqtt() -> mqtt_client:
     return client
 
 
+
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
-
+        if  msg.payload.decode() == 'activate':
+            print('switch on')
+            gpio.output(GPIO_LED, True)
+        else:
+            print('switch on')
+            gpio.output(GPIO_LED, True)
     client.subscribe(topic)
     client.on_message = on_message
 
