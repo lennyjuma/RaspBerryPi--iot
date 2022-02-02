@@ -61,10 +61,10 @@ await db.write()
 
 import  mqtt from 'mqtt'
 //let mqtt = require('mqtt')
-let client  = mqtt.connect('mqtt://172.16.33.43:1883')
+let client  = mqtt.connect('mqtt://172.16.32.81:1883')
 
 client.on('connect', function () {
-  client.subscribe('testTopic', function (err) {
+  client.subscribe('python/mqtt', function (err) {
     if (!err) {
       client.publish('presence', 'Hello mqtt')
     }
@@ -96,4 +96,4 @@ io.on('connection', (socket) => {
 });
 
 
-server.listen(3200, () => console.log('Server listening on port ', 3200));
+server.listen(3210, () => console.log('Server listening on port ', 3210));
