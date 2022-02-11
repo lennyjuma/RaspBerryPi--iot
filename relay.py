@@ -6,9 +6,9 @@ import time
 from paho.mqtt import client as mqtt_client
 
 gpio.setmode(gpio.BOARD)
-GPIO_BULB_FRONT = 15
+GPIO_BULB_FRONT = 8
 gpio.setup(GPIO_BULB_FRONT, gpio.OUT)
-#gpio.output(GPIO_BULB_FRONT, True)
+gpio.output(GPIO_BULB_FRONT, True)
 GPIO_BULB_BACK = 12
 gpio.setup(GPIO_BULB_BACK, gpio.OUT)
 GPIO_FAN = 13
@@ -16,8 +16,7 @@ gpio.setup(GPIO_FAN, gpio.OUT)
 
 broker = '172.16.32.81'
 port = 1883
-activateTopic = "device/activate"
-deactivateTopic = "device/deactivate"
+topic = "reedSwitch"
 
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 100)}'

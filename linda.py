@@ -6,13 +6,14 @@ import time
 from paho.mqtt import client as mqtt_client
 
 gpio.setmode(gpio.BOARD)
-GPIO_BULB_FRONT = 15
-gpio.setup(GPIO_BULB_FRONT, gpio.OUT)
-#gpio.output(GPIO_BULB_FRONT, True)
-GPIO_BULB_BACK = 12
-gpio.setup(GPIO_BULB_BACK, gpio.OUT)
+GPIO_SITTING_ROOM_LIGHTS = 15
+gpio.setup(GPIO_SITTING_ROOM_LIGHTS, gpio.OUT)
+GPIO_WATER_PUMP = 12
+gpio.setup(GPIO_WATER_PUMP, gpio.OUT)
 GPIO_FAN = 13
 gpio.setup(GPIO_FAN, gpio.OUT)
+GPIO_GATE = 29
+gpio.setup(GPIO_GATE, gpio.OUT)
 
 broker = '172.16.32.81'
 port = 1883
@@ -42,23 +43,29 @@ def connect_mqtt() -> mqtt_client:
 def activateSubscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
-        if msg.payload.decode() == 'Temperature-bulb-front':
-            print('Temperature-bulb-front activated')
-            gpio.output(GPIO_BULB_FRONT, True)
-        elif msg.payload.decode() == 'Temperature-bulb-back':
-            print('Temperature-bulb-back activated')
-            gpio.output(GPIO_BULB_BACK, True)
+        if msg.payload.decode() == 'sitting-room-lights':
+            print('sitting-room-lights activated')
+            gpio.output(GPIO_SITTING_ROOM_LIGHTS, True)
+        elif msg.payload.decode() == 'waterPump':
+            print('waterPump activated')
+            gpio.output(GPIO_WATER_PUMP, True)
+        elif msg.payload.decode() == 'gateSwitch':
+            print('gateSwitch activated')
+            gpio.output(GPIO_GATE, True)
         elif msg.payload.decode() == 'fan':
-            print('fan activated')
+            print('gateSwitch activated')
             gpio.output(GPIO_FAN, True)
-        elif msg.payload.decode() == 'Temperature-bulb-front2':
-            print('Temperature-bulb-front deactivated')
-            gpio.output(GPIO_BULB_FRONT, False)
-        elif msg.payload.decode() == 'Temperature-bulb-back2':
-            print('Temperature-bulb-back deactivated')
-            gpio.output(GPIO_BULB_BACK, False)
+        elif msg.payload.decode() == 'sitting-room-lights2':
+            print('sitting-room-lights activated')
+            gpio.output(GPIO_SITTING_ROOM_LIGHTS, False)
+        elif msg.payload.decode() == 'waterPump2':
+            print('waterPump activated')
+            gpio.output(GPIO_WATER_PUMP, False)
+        elif msg.payload.decode() == 'gateSwitch2':
+            print('gateSwitch activated')
+            gpio.output(GPIO_GATE, False)
         elif msg.payload.decode() == 'fan2':
-            print('fan deactivated')
+            print('gateSwitch activated')
             gpio.output(GPIO_FAN, False)
         else:
             print('Device not present')
