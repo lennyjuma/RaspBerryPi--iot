@@ -36,7 +36,12 @@ const client = mqtt.connect(serverUrl, {
 // let client  = mqtt.connect('mqtt://172.16.33.43:1883')
 
 client.on('connect', function () {
-    client.subscribe('testTopic', function (err) {
+    client.subscribe('temperature', function (err) {
+        if (!err) {
+            client.publish('presence', 'Hello mqtt')
+        }
+    })
+    client.subscribe('humidity', function (err) {
         if (!err) {
             client.publish('presence', 'Hello mqtt')
         }
@@ -46,9 +51,16 @@ client.on('connect', function () {
 
 client.on('message', function (topic, message) {
     // message is Buffer
-    io.emit('line message', message.toString());
-    io.emit('bar message', message.toString());
-    console.log('data from mqqt',message.toString())
+    if (topic == 'temperature'){
+        io.emit('line message', message.toString());
+        io.emit('bar message', message.toString());
+        console.log('temperature',message.toString())
+    }
+    if (topic == 'humidity'){
+        io.emit('line message', message.toString());
+        io.emit('bar message', message.toString());
+        console.log('humidity',message.toString())
+    }
     // client.end()
 
 })
@@ -68,9 +80,6 @@ io.on('connection', (socket) => {
     socket.on('device/activate', (msg) => {
         // io.emit('some event', { someProperty: 'some value', otherProperty: 'other value' }); // This will emit the event to all connected sockets
         io.emit('chat message', msg);
-        // for (let topic in topicArray){
-        //     console.log(topic)
-        // }
         client.publish('device/activate', msg)
         console.log('device/activate: ' + msg);
     });

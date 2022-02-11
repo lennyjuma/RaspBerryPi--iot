@@ -36,7 +36,7 @@ const client = mqtt.connect(serverUrl, {
 // let client  = mqtt.connect('mqtt://172.16.33.43:1883')
 
 client.on('connect', function () {
-    client.subscribe('testTopic', function (err) {
+    client.subscribe('reedSwitch', function (err) {
         if (!err) {
             client.publish('presence', 'Hello mqtt')
         }

@@ -64,7 +64,7 @@ import  mqtt from 'mqtt'
 let client  = mqtt.connect('mqtt://172.16.32.81:1883')
 
 client.on('connect', function () {
-  client.subscribe('python/mqtt', function (err) {
+  client.subscribe('python/mqtexpress', function (err) {
     if (!err) {
       client.publish('presence', 'Hello mqtt')
     }
